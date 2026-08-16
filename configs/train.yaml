@@ -1,0 +1,99 @@
+
+model:
+  hub_id: Qwen/Qwen3.5-4B
+  revision: 851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a
+  base_model: ./model/Qwen3.5-4B
+  finetune_method: lora
+  compute_dtype: bfloat16
+  attention_implementation: sdpa
+  trust_remote_code: false
+
+  quantization:
+    type: nf4
+    double_quant: true
+
+  lora:
+    rank: 16
+    alpha: 32
+    dropout: 0.05
+    target_modules:
+      - q_proj
+      - k_proj
+      - v_proj
+      - o_proj
+      - gate_proj
+      - up_proj
+      - down_proj
+      - in_proj_qkv
+      - in_proj_z
+      - in_proj_b
+      - in_proj_a
+      - out_proj
+
+data:
+  input_dir: ./trainingData
+  max_seq_length: 6144
+  pad_to_multiple_of: 8
+  chat_template_kwargs:
+    enable_thinking: false
+  split_seed: 42
+  train_ratio: 0.6
+  validation_ratio: 0.2
+  test_ratio: 0.2
+
+training:
+  output_dir: ./training_output
+  seed: 42
+  num_train_epochs: 5
+  loss_schedule:
+    # Ratios are proportions of total epoch progress and must sum to 1.0.
+    # Example: stage1=0.6 and stage2=0.4 switches after 60% of training.
+    stage1:
+      name: ground_truth_ce
+      ratio: 0.6
+    stage2:
+      # Scores label/cand1/cand2/cand3 by mean token NLL, then trains
+      # against the lowest-NLL equivalent with completion-only CE.
+      name: nearest_equivalent_ce
+      ratio: 0.4
+  per_device_train_batch_size: 1
+  per_device_eval_batch_size: 1
+  gradient_accumulation_steps: 8
+  learning_rate: 0.0001
+  weight_decay: 0.01
+  warmup_ratio: 0.03
+  lr_scheduler_type: cosine
+  optimizer: adamw_torch
+  gradient_checkpointing: true
+  gradient_checkpointing_use_reentrant: false
+  max_grad_norm: 1.0
+  tf32: true
+  dataloader_num_workers: 2
+  dataloader_persistent_workers: true
+  include_num_input_tokens_seen: true
+  ddp_find_unused_parameters: false
+  report_to: none
+
+monitoring:
+  log_dir: ./log
+  loss_file: losses.json
+  sample_interval: 1000
+  validation_max_samples: 128 # null to use full validation set
+  final_validation_file: final_validation.json
+  progress_update_steps: 1
+
+evaluation:
+  source_dir: ./data
+  adapter_dir: ./training_output
+  output_dir: ./testsetEvalResult
+  batch_size: 1
+  max_new_tokens: 1024
+  do_sample: false
+  num_beams: 1
+  repetition_penalty: 1.05
+  frama_c:
+    executable: frama-c
+    provers: alt-ergo,z3
+    wp_timeout: 10
+    process_timeout: 120
+    workers: 4
