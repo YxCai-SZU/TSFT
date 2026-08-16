@@ -1,0 +1,22 @@
+#include <stdint.h>
+
+/*@
+    requires (0 <= (n) <= 2896);
+    ensures \result == (((n) * ((n) + 1)) / 2);
+    assigns \nothing;
+*/
+uint32_t find_triangular_num(uint32_t n)
+{
+    // Variable declarations at top of scope
+    uint32_t result;
+
+    //@ assert n <= 2896;
+    //@ assert n + 1 <= 2897;
+    //@ assert n * (n + 1) <= 2896 * 2897;
+    //@ assert (n * (n + 1)) / 2 <= 4197376;
+
+    result = n * (n + 1) / 2;
+
+    //@ assert result == (((n) * ((n) + 1)) / 2);
+    return result;
+}

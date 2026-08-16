@@ -1,0 +1,19 @@
+#include <stdbool.h>
+
+/*@
+    requires (0 <= (x) <= 1);
+    ensures \result == (((x) == 0) ? 1 : 0);
+    assigns \nothing;
+*/
+int func(int x)
+{
+    int result;
+    
+    //@ assert 0 <= x <= 1;
+    
+    result = 1 - x;
+    
+    //@ assert (x == 0 ==> result == 1) && (x == 1 ==> result == 0);
+    
+    return result;
+}

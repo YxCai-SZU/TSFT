@@ -1,0 +1,21 @@
+#include <stdbool.h>
+
+/*@
+    requires (1 <= (x) <= 100);
+    requires (1 <= (y) <= 100);
+    ensures \result == (y >= 2 * x && y <= 4 * x && y % 2 == 0);
+*/
+bool func(unsigned int x, unsigned int y)
+{
+    //@ assert (1 <= (x) <= 100);
+    //@ assert (1 <= (y) <= 100);
+    
+    bool result = false;
+    
+    if (y >= 2 * x && y <= 4 * x && y % 2 == 0) {
+        result = true;
+    }
+    
+    //@ assert result == (y >= 2 * x && y <= 4 * x && y % 2 == 0);
+    return result;
+}

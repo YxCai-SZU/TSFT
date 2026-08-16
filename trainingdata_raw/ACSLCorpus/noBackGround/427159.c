@@ -1,0 +1,16 @@
+#include <stdbool.h>
+
+/*@
+    requires (1 <= (x) <= 100);
+    ensures \result == (x >= 30);
+    assigns \nothing;
+*/
+bool func(int x)
+{
+    bool result;
+    
+    //@ assert 1 <= x <= 100;
+    
+    result = (x >= 30);
+    return result;
+}

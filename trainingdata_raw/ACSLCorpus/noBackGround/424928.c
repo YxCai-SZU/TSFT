@@ -1,0 +1,35 @@
+#include <limits.h>
+
+/*@
+    requires INT_MIN <= a <= INT_MAX;
+    requires INT_MIN <= b <= INT_MAX;
+    requires INT_MIN <= c <= INT_MAX;
+    ensures \result == a || \result == b || \result == c;
+    ensures \result <= a;
+    ensures \result <= b;
+    ensures \result <= c;
+    ensures (((\result) == (a) || (\result) == (b) || (\result) == (c)) &&
+    (\result) <= (a) && (\result) <= (b) && (\result) <= (c));
+*/
+int min_numbers(int a, int b, int c)
+{
+    int min_val = a;
+    
+    if (b < min_val)
+    {
+        min_val = b;
+        //@ assert min_val <= a;
+        //@ assert min_val <= b;
+    }
+    
+    if (c < min_val)
+    {
+        min_val = c;
+        //@ assert min_val <= a;
+        //@ assert min_val <= b;
+        //@ assert min_val <= c;
+    }
+    
+    //@ assert (((min_val) == (a) || (min_val) == (b) || (min_val) == (c)) &&     (min_val) <= (a) && (min_val) <= (b) && (min_val) <= (c));
+    return min_val;
+}

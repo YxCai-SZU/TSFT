@@ -7,12 +7,14 @@ TSFT implements Two-Stage Fine-Tuning for ACSL specification generation. It incl
 | Artifact | Location |
 |---|---|
 | Source code | This repository |
+| Raw training sources | [`trainingdata_raw/`](./trainingdata_raw) |
+| Evaluation datasets | [`evaluation_datasets/`](./evaluation_datasets) |
 | Qwen3.5-4B base model | [Qwen/Qwen3.5-4B](https://huggingface.co/Qwen/Qwen3.5-4B) |
 | Qwen3.5-9B base model | [Qwen/Qwen3.5-9B](https://huggingface.co/Qwen/Qwen3.5-9B) |
-| TSFT adapters | Qwen3.5-4B-TSFT | https://huggingface.co/EJzzzzz/ACSL-TSFT-Qwen3.5-4B-Adapter/tree/main |
-| TSFT adapters | Qwen3.5-9B-TSFT | https://huggingface.co/EJzzzzz/ACSL-TSFT-Qwen3.5-9B-Adapter/tree/main|
+| Qwen3.5-4B TSFT adapter | [EJzzzzz/ACSL-TSFT-Qwen3.5-4B-Adapter](https://huggingface.co/EJzzzzz/ACSL-TSFT-Qwen3.5-4B-Adapter/tree/main) |
+| Qwen3.5-9B TSFT adapter | [EJzzzzz/ACSL-TSFT-Qwen3.5-9B-Adapter](https://huggingface.co/EJzzzzz/ACSL-TSFT-Qwen3.5-9B-Adapter/tree/main) |
 
-The repository does not contain base-model weights or trained adapters. You can download them from the above given urls.
+The repository includes the raw training and evaluation sources, but not base-model weights or trained adapters. Download model artifacts from the links above.
 
 ## Installation
 
@@ -46,6 +48,8 @@ python ./generate_training_data.py --inputdir ./trainingdata_raw --outputdir ./t
 ```
 
 The command and its arguments are unchanged from the original implementation. Each run creates `trainingData_N.json` in the output directory.
+
+`trainingdata_raw/` contains the ACSLCorpus and CryChic/Dafny-derived sources. `evaluation_datasets/` contains the ACSLBG, ACSLNBG, ACSLSyn, Frama-C-Problems, OOPSLA, and SyGuS evaluation sets.
 
 Optional preprocessing tools:
 
@@ -106,7 +110,7 @@ Evaluate one C file with `evaluation_pipeline.py`:
 
 ```bash
 python ./evaluation_pipeline.py \
-  --file /path/to/input.c \
+  --file ./evaluation_datasets/SyGuS/1.c \
   --modeldir ./model/Qwen3.5-4B \
   --adapterdir ./training_output/best_checkpoint \
   --outputdir ./evaluation_output/single \
@@ -119,7 +123,7 @@ Evaluate every `.c` file below a directory with `multifile_pipline.py`:
 
 ```bash
 python ./multifile_pipline.py \
-  --file /path/to/c-sources \
+  --file ./evaluation_datasets/SyGuS \
   --modeldir ./model/Qwen3.5-4B \
   --adapterdir ./training_output/best_checkpoint \
   --outputdir ./evaluation_output/SyGuS \

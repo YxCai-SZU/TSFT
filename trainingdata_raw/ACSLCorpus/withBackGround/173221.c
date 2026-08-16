@@ -1,0 +1,19 @@
+#include <limits.h>
+
+/*@
+    predicate a_in_range(integer a) = 1 <= a <= 100;
+    predicate b_in_range(integer b) = 1 <= b <= 100;
+    predicate product_in_range(integer a, integer b) = 1*1 <= a*b <= 100*100;
+    predicate no_overflow(integer a, integer b) = a*b <= 10000;
+*/
+
+/*@
+    requires a_in_range(a) && b_in_range(b);
+    ensures \result == a * b;
+    assigns \nothing;
+*/
+int func(int a, int b) {
+    //@ assert product_in_range(a, b);
+    //@ assert no_overflow(a, b);
+    return a * b;
+}

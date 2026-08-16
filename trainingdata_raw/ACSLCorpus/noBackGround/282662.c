@@ -1,0 +1,19 @@
+#include <stdbool.h>
+
+/*@
+    requires (1 <= (n) && (n) <= 10 && 0 <= (k) && (k) <= (n) * (n));
+    ensures \result == ((n) * (n) - (k));
+    assigns \nothing;
+*/
+int func(int n, int k)
+{
+    // Variable declarations at top of scope
+    int res;
+
+    //@ assert 1 <= n && n <= 10;
+    //@ assert 0 <= k && k <= n * n;
+    //@ assert n * n <= 100;
+
+    res = n * n - k;
+    return res;
+}
