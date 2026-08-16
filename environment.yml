@@ -1,0 +1,27 @@
+name: tsft-qwen35-4b
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.11
+  - pip>=24
+  - setuptools>=75
+  - wheel
+  - git
+  - opam
+  - make
+  - m4
+  - pkg-config
+  - gmp
+  - zlib
+  - z3-solver
+  - graphviz
+  - c-compiler
+  - cxx-compiler
+  - clang
+  - pip:
+      - --extra-index-url https://download.pytorch.org/whl/cu124
+      - torch==2.6.0
+      - -r requirements.txt
+      - -e .

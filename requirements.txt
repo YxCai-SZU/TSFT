@@ -1,0 +1,16 @@
+﻿# Install the CUDA-specific PyTorch wheel before this file. On the target Linux
+# server use torch==2.6.0 from https://download.pytorch.org/whl/cu124.
+# Qwen3.5 text-only loading currently requires Qwen3_5ForCausalLM from main.
+transformers @ git+https://github.com/huggingface/transformers.git@main
+accelerate==1.14.0
+peft==0.20.0
+bitsandbytes==0.50.0
+huggingface-hub>=1.5,<2.0
+PyYAML>=6.0,<7
+safetensors>=0.5,<1
+sentencepiece>=0.2,<1
+tqdm>=4.66,<5
+torchvision==0.21.0
+pillow>=10,<13
+# Used by Transformers/Trainer for host memory and runtime measurements.
+psutil>=5.9,<8
