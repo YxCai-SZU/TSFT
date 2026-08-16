@@ -9,8 +9,8 @@ TSFT implements Two-Stage Fine-Tuning for ACSL specification generation. It incl
 | Source code | This repository |
 | Qwen3.5-4B base model | [Qwen/Qwen3.5-4B](https://huggingface.co/Qwen/Qwen3.5-4B) |
 | Qwen3.5-9B base model | [Qwen/Qwen3.5-9B](https://huggingface.co/Qwen/Qwen3.5-9B) |
-| TSFT adapters | Qwen3.5-4B-TSFT | (https://huggingface.co/EJzzzzz/ACSL-TSFT-Qwen3.5-4B-Adapter/tree/main) |
-| TSFT adapters | Qwen3.5-9B-TSFT | (https://huggingface.co/EJzzzzz/ACSL-TSFT-Qwen3.5-9B-Adapter/tree/main) |
+| TSFT adapters | Qwen3.5-4B-TSFT(https://huggingface.co/EJzzzzz/ACSL-TSFT-Qwen3.5-4B-Adapter/tree/main) |
+| TSFT adapters | Qwen3.5-9B-TSFT(https://huggingface.co/EJzzzzz/ACSL-TSFT-Qwen3.5-9B-Adapter/tree/main) | 
 
 The repository does not contain base-model weights or trained adapters. You can download them from the above given urls.
 
