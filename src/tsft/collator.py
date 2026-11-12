@@ -32,7 +32,7 @@ class CompletionOnlyCollator:
             "input_ids": torch.tensor(input_ids, dtype=torch.long),
             "attention_mask": torch.tensor(attention_mask, dtype=torch.long),
             "labels": torch.tensor(labels, dtype=torch.long),
-            # Keep the four variable-length alternatives as Python lists so
+            # Keep the 3 alternatives as Python lists so
             # stage-one batches do not move unused candidates onto the GPU.
             "equivalent_input_ids": [
                 feature["equivalent_input_ids"] for feature in features
