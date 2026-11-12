@@ -173,7 +173,7 @@ class NearestEquivalentCrossEntropyLoss(LossStrategy):
                 or len(row_input_ids) != self.candidate_count
                 or len(row_labels) != self.candidate_count
             ):
-                raise ValueError("Every sample must provide label, cand1, cand2, cand3")
+                raise ValueError("Every sample must provide cand1, cand2, cand3")
             for candidate_ids, candidate_labels in zip(row_input_ids, row_labels):
                 if (
                     not isinstance(candidate_ids, Sequence)
