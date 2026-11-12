@@ -264,8 +264,8 @@ def encode_example(
         "input_ids": input_ids,
         "attention_mask": [1] * len(input_ids),
         "labels": labels,
-        "equivalent_input_ids": [item[0] for item in encoded_equivalents],
-        "equivalent_labels": [item[1] for item in encoded_equivalents],
+        "equivalent_input_ids": [item[0] for item in encoded_equivalents[1:]],
+        "equivalent_labels": [item[1] for item in encoded_equivalents[1:]],
         "sample_id": example.sample_id,
         "target_type": example.target_type,
     }
