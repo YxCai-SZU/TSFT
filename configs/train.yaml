@@ -52,7 +52,7 @@ training:
       name: ground_truth_ce
       ratio: 0.6
     stage2:
-      # Scores label/cand1/cand2/cand3 by mean token NLL, then trains
+      # Scores cand1/cand2/cand3 by mean token NLL, then trains
       # against the lowest-NLL equivalent with completion-only CE.
       name: nearest_equivalent_ce
       ratio: 0.4
