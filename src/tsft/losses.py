@@ -78,7 +78,7 @@ class GroundTruthCrossEntropyLoss(LossStrategy):
 class NearestEquivalentCrossEntropyLoss(LossStrategy):
     """Select the highest-likelihood equivalent and train against it with CE."""
 
-    candidate_count = 4
+    candidate_count = 3
 
     def compute(self, context: LossContext) -> torch.Tensor:
         return _completion_mean_losses(context.outputs.logits, context.labels).mean()
@@ -130,7 +130,7 @@ class NearestEquivalentCrossEntropyLoss(LossStrategy):
         if not torch.isfinite(scores).all():
             raise FloatingPointError("Equivalent-candidate scores contain NaN or Inf")
         # torch.argmin returns the first index on ties, giving the stable order
-        # label, cand1, cand2, cand3.
+        # cand1, cand2, cand3.
         selected_indices = scores.argmin(dim=1).tolist()
         selected_inputs, selected_labels = self._padded_batch(
             equivalent_input_ids,
